@@ -1,0 +1,34 @@
+page-edit {
+  .thumb-img{
+    padding:4px;
+    min-height: 100px;
+  }
+  .slide-zoom {
+    background: #488aff;
+  }
+  .add-button {
+    margin-top: 25px;
+    margin-left: -19px;
+  }
+
+  .delete-button {
+    z-index: 2;
+    position: absolute;
+    right: 3%;
+    top: 6%;
+    margin: auto;
+  }
+  .clear-button {
+    margin-top: -6em;
+  }
+
+  .play-button {
+    z-index: 2;
+    position: absolute;
+    right: 28%;
+    top: 32%;
+    color: white;
+    margin: auto;
+  }
+
+}

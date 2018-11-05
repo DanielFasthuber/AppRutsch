@@ -1,0 +1,29 @@
+page-detail {
+  .thumb-img{
+    padding:4px;
+    max-height: 100px;
+    max-width: 100px;
+  }
+  .slide-zoom {
+    background: #488aff;
+  }
+
+  .play-button {
+    z-index: 2;
+    position: absolute;
+    right: 10%;
+    top: 32%;
+    color: white;
+    margin: auto;
+  }
+
+  ion-slides {
+    img {
+      max-height: 500px;
+      max-width: 500px;
+      padding:4px;
+      position: relative;
+    }
+  }
+
+}

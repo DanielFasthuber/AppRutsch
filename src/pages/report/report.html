@@ -1,0 +1,125 @@
+
+<ion-header>
+  <ion-navbar   color="primary">
+    <ion-title>Report Page</ion-title>
+    <ion-buttons end>
+      <button ion-button item-end (click)="save()">
+        <ion-icon style="font-size: 2em; padding-right: 10px;"><i class="fa fa-floppy-o" aria-hidden="true"></i>
+        </ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-item style="padding-bottom: 1em;">
+        <ion-label floating><h1>Title: <ion-icon large name='create' is-active="true" color="primary"></ion-icon></h1></ion-label>
+        <ion-input type="text" [(ngModel)]="slide.title" [ngModelOptions]="{standalone: true}" required></ion-input>
+      </ion-item>
+      <p style="padding-left: 0.5em"><ion-icon name="person"> Lisa Wald</ion-icon><ion-icon name="calendar" style="padding-left: 1em"> {{dateTime | date:'dd.MM.yyyy|HH:mm'}}</ion-icon></p>
+      <button ion-button end float-right right item-end large color="danger" clear icon-only class="clear-button" (click)="resetFormConfirm()" >
+        <ion-icon name='close-circle' is-active="true" ></ion-icon>
+      </button>
+    </ion-card-header>
+
+    <ion-card-content>
+      <h2>Location:
+        <button ion-button  color="default" clear icon-only style="margin-top: -10px" (click)="locate()">
+          <ion-icon name='create' is-active="false" ></ion-icon>
+        </button>
+      </h2>
+      <P style="padding-left: 0.5em" *ngIf="user_location !== null">User: {{user_location.user_lat}}, {{user_location.user_long}} </P>
+      <P style="padding-left: 0.5em" *ngIf="slide_location !== null">Slide: {{slide_location.slide_lat}}, {{slide_location.slide_long}}</P>
+    </ion-card-content>
+
+    <ion-card-content>
+      <h2>Foto:({{fotoMediaFiles.length}})</h2>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-10 *ngIf="fotoMediaFiles.length !== 0">
+            <ion-slides class="image-slider" loop="false" slidesPerView="2">
+              <ion-slide *ngFor="let foto of fotoMediaFiles; let fotoidx = index">
+                <ion-item>
+                  <ion-thumbnail item-start>
+                    <img src="{{foto.foto_path}}" imageViewer>
+                    <button ion-button color="danger" clear icon-only class="delete-button" (click)="deleteFoto(fotoidx)" >
+                      <ion-icon name='close-circle' is-active="false" ></ion-icon>
+                    </button>
+                  </ion-thumbnail>
+                </ion-item>
+              </ion-slide>
+            </ion-slides>
+          </ion-col>
+          <ion-col col-2>
+            <button ion-button color="default" large clear icon-only class="add-button" (click)="presentActionSheet()">
+              <ion-icon name='add-circle' is-active="false" ></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+        <h2>Video:({{videoMediaFiles.length}})</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-10 *ngIf="videoMediaFiles.length !== 0">
+              <ion-slides loop="false" slidesPerView="2">
+                <ion-slide *ngFor="let video of videoMediaFiles; let videoidx = index">
+                  <ion-item>
+                    <ion-thumbnail item-start>
+                      <img src="{{video.video_thumbnail}}" (click)="playVideo(video)">
+                      <button ion-button clear icon-only class="play-button" (click)="playVideo(video)">
+                        <ion-icon ><i class="fa fa-play-circle"></i></ion-icon>
+                      </button>
+                      <button ion-button color="danger" clear icon-only class="delete-button" (click)="deleteVideo(videoidx)" >
+                        <ion-icon name='close-circle' is-active="false" ></ion-icon>
+                      </button>
+                    </ion-thumbnail>
+                  </ion-item>
+                </ion-slide>
+              </ion-slides>
+            </ion-col>
+            <ion-col col-2>
+              <button ion-button color="default" large clear icon-only class="add-button" (click)="captureVideo()">
+                <ion-icon name='add-circle' is-active="false" ></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      <h2>Memo:({{audioMediaFiles.length}})</h2>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-10 *ngIf="audioMediaFiles.length !== 0">
+            <ion-slides  loop="false" slidesPerView="2">
+              <ion-slide  *ngFor="let audio of audioMediaFiles; let audioidx = index">
+                <ion-item>
+                  <ion-thumbnail item-start>
+                    <button ion-button style="min-height: 80px;" (click)="playAudio(audio)">
+                      <ion-icon style="font-size: 4em;">
+                        <i class="fa fa-file-audio-o" aria-hidden="true"></i>
+                      </ion-icon>
+                    </button>
+                        <!--{{audio.memo_id}}-->
+                    <button ion-button color="danger" clear icon-only class="delete-button" (click)="deleteAudio(audioidx)" >
+                      <ion-icon name='close-circle' is-active="false" ></ion-icon>
+                    </button>
+                  </ion-thumbnail>
+                </ion-item>
+              </ion-slide>
+            </ion-slides>
+          </ion-col>
+          <ion-col col-2>
+            <button ion-button color="default" large clear icon-only class="add-button" (click)="captureAudio()">
+              <ion-icon name='add-circle' is-active="false" ></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <audio #myaudio *ngIf="audioMediaFiles.length !== 0" controls autoplay  style="width: 250px;"></audio>
+
+    </ion-card-content>
+  </ion-card>
+ </ion-content>

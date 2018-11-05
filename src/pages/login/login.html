@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Login - Landslide Report App</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <img src="assets/imgs/bfw_logo.png">
+    <ion-card-content>
+      Landslide Report
+    </ion-card-content>
+  </ion-card>
+
+  <form (submit)="doLogin()">
+    <ion-list>
+
+      <ion-item>
+        <ion-label fixed>Email</ion-label>
+        <ion-input type="email" name="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>Passwort</ion-label>
+        <ion-input type="password" name="password"></ion-input>
+      </ion-item>
+
+      <div padding>
+        <button ion-button color="primary" block large icon-end>Login<ion-icon name="log-in" icon-end></ion-icon></button>
+      </div>
+    </ion-list>
+  </form>
+</ion-content>

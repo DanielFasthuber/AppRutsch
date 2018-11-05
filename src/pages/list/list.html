@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>List Page</ion-title>
+    <ion-buttons end>
+      <button ion-button item-end icon-left (click)="logOut()">
+        <ion-icon name="log-out" icon-end></ion-icon>
+        Logout
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="active">
+      <ion-segment-button value="all" (ionSelect)="setAllVariable()">
+        ALL ({{countAll}})
+      </ion-segment-button>
+      <ion-segment-button value="mine" (ionSelect)="setMineVariable()">
+        Mine ({{countMine}})
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div [ngSwitch]="active">
+
+    <ion-list *ngSwitchCase="'all'">
+      <ion-searchbar [(ngModel)]="terms"></ion-searchbar>
+      <ion-item-sliding *ngFor=" let landslide of allLandslides | search : terms">
+        <button ion-item (click)="showDetail(landslide)">
+          <ion-thumbnail item-left>
+            <img *ngIf="landslide.thumbnail!== 'N/A'" src="{{landslide.thumbnail}}">
+          </ion-thumbnail>
+          <h2><ion-icon name="calendar"></ion-icon> {{landslide.datum | date: 'dd.MM.yyyy | HH:mm'}}</h2>
+          <h3 style="padding-top: 0.5em"><ion-icon name="person"></ion-icon> {{landslide.vorname}} {{landslide.nachname}}</h3>
+          <h4 style="padding-top: 0.5em">Fotos:{{landslide.foto_count}} Videos:{{landslide.video_count}} Memo:{{landslide.memo_count}}</h4>
+        </button>
+        <ion-item-options side="right">
+          <button ion-button large outline color="danger" (click)="deleteLandslide(landslide.slide_id)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+          <button ion-button large outline color="primary" (click)="editLandslide(landslide)">
+            <ion-icon name="cog"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'mine'">
+      <ion-searchbar [(ngModel)]="terms"></ion-searchbar>
+      <ion-item-sliding *ngFor=" let landslide of allLandslides | search : terms" >
+        <button ion-item (click)="showDetail(landslide)" *ngIf="landslide.user_id === 1" >
+          <ion-thumbnail item-left>
+            <img *ngIf="landslide.thumbnail!== 'N/A'" src="{{landslide.thumbnail}}">
+          </ion-thumbnail>
+          <h2><ion-icon name="calendar"></ion-icon> {{landslide.datum | date: 'dd.MM.yyyy | HH:mm'}}</h2>
+          <h3 style="padding-top: 0.5em"><ion-icon name="person"></ion-icon> {{landslide.vorname}} {{landslide.nachname}}</h3>
+          <h4 style="padding-top: 0.5em">Fotos:{{landslide.foto_count}} Videos:{{landslide.video_count}} Memo:{{landslide.memo_count}}</h4>
+        </button>
+        <ion-item-options side="right">
+          <button ion-button large outline color="danger" (click)="deleteLandslide(landslide.slide_id)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+          <button ion-button large outline color="primary" (click)="editLandslide(landslide)">
+            <ion-icon name="cog"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+
+    </ion-list>
+  </div>
+</ion-content>

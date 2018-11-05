@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-navbar hideBackButton  color="primary">
+    <ion-title>Detail Page</ion-title>
+    <ion-buttons end>
+      <button ion-button item-end icon-left (click)="logOut()">
+        <ion-icon name="log-out" icon-end></ion-icon>
+        Logout
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <h1 style="padding-bottom: 0.5em" text-wrap>{{landslide.title}}</h1>
+      <p style="padding-left: 0.5em"><ion-icon name="person"></ion-icon> {{landslide.vorname}} {{landslide.nachname}} <ion-icon name="calendar" style="padding-left: 1.5em"></ion-icon> {{landslide.datum | date: 'dd.MM.yyyy | HH:mm'}}</p>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>Location:</h2>
+      <P style="padding-left: 0.5em">User:  {{landslide.user_lat}}, {{landslide.user_long}}</P>
+      <P style="padding-left: 0.5em">Slide: {{landslide.slide_lat}}, {{landslide.slide_long}}</P>
+    </ion-card-content>
+
+    <ion-card-content>
+
+      <h2>Foto:({{fotos.length}})</h2>
+      <ion-slides class="image-slider" loop="false" slidesPerView="3">
+        <ion-slide *ngFor="let foto of fotos">
+          <ion-item>
+            <ion-thumbnail item-start>
+              <img data-src="{{foto.foto_path}}" imageViewer>
+            </ion-thumbnail>
+          </ion-item>
+        </ion-slide>
+      </ion-slides>
+
+      <h2>Video:({{videos.length}})</h2>
+      <ion-slides *ngIf="videos.length !== 0" loop="false" slidesPerView="3">
+        <ion-slide *ngFor="let video of videos; let videoidx = index">
+          <ion-item>
+            <ion-thumbnail item-start>
+              <img src="{{video.video_thumbnail}}" (click)="playVideo(video)">
+              <button ion-button clear icon-only class="play-button" (click)="playVideo(video)">
+                <ion-icon ><i class="fa fa-play-circle"></i></ion-icon>
+              </button>
+            </ion-thumbnail>
+          </ion-item>
+        </ion-slide>
+      </ion-slides>
+
+      <h2>Memo:({{memos.length}})</h2>
+      <ion-slides  *ngIf="memos.length !== 0" loop="false" slidesPerView="3">
+        <ion-slide  *ngFor="let audio of memos; let audioidx = index">
+          <ion-item>
+            <ion-thumbnail item-start>
+            <button ion-button style="min-height: 80px;" (click)="playAudio(audio)">
+              <ion-icon style="font-size: 4em;"><i class="fa fa-file-audio-o" aria-hidden="true"></i>
+              </ion-icon>
+            </button>
+              <p> Memo #{{audioidx + 1}}</p>
+            </ion-thumbnail>
+          </ion-item>
+        </ion-slide>
+      </ion-slides>
+      <audio #myaudio *ngIf="memos.length !== 0" controls autoplay  style="width: 280px;"></audio>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
