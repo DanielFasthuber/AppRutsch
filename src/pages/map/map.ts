@@ -4,7 +4,7 @@ import {ContentProvider} from "../../providers/content/content";
 import * as L from 'leaflet';
 //import "leaflet.icon.glyph/Leaflet.Icon.Glyph";
 import "leaflet-extra-markers/dist/js/leaflet.extra-markers.min";
-import "leaflet-pulse-icon/dist/L.Icon.Pulse";
+import "@ansur/leaflet-pulse-icon/dist/L.Icon.Pulse";
 import "leaflet.markercluster/dist/leaflet.markercluster-src";
 import {DatabaseProvider} from "../../providers/database/database";
 import {LoginPage} from "../login/login";

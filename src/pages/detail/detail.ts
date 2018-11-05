@@ -1,7 +1,7 @@
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {DatabaseProvider} from "../../providers/database/database";
-import {StreamingMedia, StreamingVideoOptions} from "@ionic-native/streaming-media";
+import {StreamingMedia, StreamingVideoOptions, StreamingAudioOptions} from "@ionic-native/streaming-media";
 
 @IonicPage()
 @Component({
@@ -50,11 +50,22 @@ export class DetailPage {
   }
 
   playAudio(memo) {
+    let path = memo.memo_path;
     if ((memo.memo_path.indexOf('.m4a')|| memo.memo_path.indexOf('.3gpp')) > -1) {
-      let path = memo.memo_path;
       let audio = this.myAudio.nativeElement;
       audio.src = path;
       audio.play();
+    }else{
+      let options: StreamingAudioOptions = {
+        successCallback: function() {
+          console.log("Video was closed without error.");
+        },
+        errorCallback: function(errMsg) {
+          console.log("Error! " + errMsg);
+        },
+        keepAwake: true
+      };
+      this.streamingMedia.playAudio(path, options);
     }
   }
 }

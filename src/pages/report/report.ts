@@ -12,7 +12,7 @@ import { File } from '@ionic-native/file';
 import { VideoEditor } from '@ionic-native/video-editor';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import {FilePath} from "@ionic-native/file-path";
-import { StreamingMedia, StreamingVideoOptions} from '@ionic-native/streaming-media';
+import { StreamingMedia, StreamingVideoOptions, StreamingAudioOptions} from '@ionic-native/streaming-media';
 import {Landslide} from "../../models/landslide";
 import {LocationProvider} from "../../providers/location/location";
 import {DatabaseProvider} from "../../providers/database/database";
@@ -282,34 +282,18 @@ export class ReportPage {
       audio.play();
     }
     else {
-      alert("Sorry your audio format is not supported, please use .m4a or .3gpp. Your file ends with: " + path);
-    }
-  }
-
-  play(myFile) {
-
-    alert("test " + myFile.src);
-
-    if ((myFile.src.indexOf('.m4a')|| myFile.src.indexOf('.3gpp')) > -1) {
-      let path = myFile.src;
-      let audio = this.myAudio.nativeElement;
-      audio.src = path;
-      audio.play();
-
-    } else {
-
-      let options: StreamingVideoOptions = {
+      let options: StreamingAudioOptions = {
         successCallback: function() {
           console.log("Video was closed without error.");
         },
         errorCallback: function(errMsg) {
           console.log("Error! " + errMsg);
         },
-        orientation: 'portrait'
-        //shouldAutoClose: true,  // true(default)/false
-        //controls: true
+        keepAwake: true
       };
-      this.streamingMedia.playVideo(myFile.src, options);
+      this.streamingMedia.playAudio(path, options);
+
+      //alert("Sorry your audio format is not supported, please use .m4a or .3gpp. Your file ends with: " + path);
     }
   }
 
